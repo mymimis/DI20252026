@@ -15,8 +15,12 @@ const btnSeleccionMultiple = document.getElementById("btn-seleccion-multiple");
 const menuSeleccion = document.getElementById("menu-seleccion");
 // Botón para sumar a todos los seleccionados
 const btnSumarSeleccion = document.getElementById("btn-sumar-seleccion");
+// Botón para sumar decimas a todos los seleccionados
+const btnSumarDecimaSeleccion = document.getElementById("btn-sumar-decima-seleccion");
 // Botón para restar a todos los seleccionados
 const btnRestarSeleccion = document.getElementById("btn-restar-seleccion");
+// Botón para restar decimas a todos los seleccionados
+const btnRestarDecimaSeleccion = document.getElementById("btn-restar-decima-seleccion");
 // Botón para salir del modo selección
 const btnConfirmarSeleccion = document.getElementById("btn-confirmar-seleccion");
 // Estado global: ¿está activo el modo selección?
@@ -59,6 +63,8 @@ btnConfirmarSeleccion.addEventListener("click", () => {
   setEstado("Modo selección desactivado.");
 });
 
+
+
 // Suma +1 a todas las tarjetas seleccionadas
 btnSumarSeleccion.addEventListener("click", () => {
   const seleccionados = lista.querySelectorAll(".check-seleccion:checked");
@@ -75,6 +81,23 @@ btnSumarSeleccion.addEventListener("click", () => {
   setEstado(`Sumado +1 a ${seleccionados.length} tarjetas seleccionadas.`);
 });
 
+// Suma +0.1 a todas las tarjetas seleccionadas
+btnSumarDecimaSeleccion.addEventListener("click", () => {
+  const seleccionados = lista.querySelectorAll(".check-seleccion:checked");
+  seleccionados.forEach(chk => {
+    const card = chk.closest(".persona");
+    const nombre = card.dataset.nombre;
+    let valor = estado.get(nombre) ?? 10;
+    valor += 0.1;
+    estado.set(nombre, valor);
+    card.querySelector(".contador").textContent = valor;
+    card.querySelector(".contador").dataset.valor = String(valor);
+    bump(card.querySelector(".contador"));
+  });
+  setEstado(`Sumado +0.1 a ${seleccionados.length} tarjetas seleccionadas.`);
+});
+
+
 // Resta -1 a todas las tarjetas seleccionadas
 btnRestarSeleccion.addEventListener("click", () => {
   const seleccionados = lista.querySelectorAll(".check-seleccion:checked");
@@ -89,6 +112,24 @@ btnRestarSeleccion.addEventListener("click", () => {
     bump(card.querySelector(".contador"));
   });
   setEstado(`Restado -1 a ${seleccionados.length} tarjetas seleccionadas.`);
+});
+
+
+
+// Resta -0.1 a todas las tarjetas seleccionadas
+btnRestarDecimaSeleccion.addEventListener("click", () => {
+  const seleccionados = lista.querySelectorAll(".check-seleccion:checked");
+  seleccionados.forEach(chk => {
+    const card = chk.closest(".persona");
+    const nombre = card.dataset.nombre;
+    let valor = estado.get(nombre) ?? 10;
+    valor -= 0.1;
+    estado.set(nombre, valor);
+    card.querySelector(".contador").textContent = valor;
+    card.querySelector(".contador").dataset.valor = String(valor);
+    bump(card.querySelector(".contador"));
+  });
+  setEstado(`Restado -0.1 a ${seleccionados.length} tarjetas seleccionadas.`);
 });
 
 function bump(el) {
