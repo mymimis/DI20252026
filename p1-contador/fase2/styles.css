@@ -5,10 +5,10 @@
   border-top: 2px solid var(--accent);
   box-shadow: 0 -2px 8px rgba(0,0,0,0.07);
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 2rem;
   z-index: 100;
 }
 .menu-seleccion.oculto { display: none; }
